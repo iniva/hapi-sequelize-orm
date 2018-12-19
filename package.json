@@ -1,0 +1,49 @@
+{
+  "name": "hapi-sequelize-orm",
+  "version": "1.0.0",
+  "description": "A Hapijs (v17+) plugin for relational databases using Sequelize",
+  "main": "lib/index.js",
+  "author": "Tony DBR <tonyblast@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "hapijs",
+    "sequelize",
+    "orm"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib",
+    "clean:build": "rm lib/*.test.js && rimraf lib/**/*.test.js",
+    "commit": "git-cz",
+    "hooks:message": "node hooks/index.js --action=message",
+    "do:build": "yarn clean && babel src --out-dir lib --copy-files --ignore '**/*.test.js' && yarn clean:build",
+    "do:pack": "cd lib && yarn pack",
+    "do:prepublish": "cp package.json README.md LICENSE ./lib",
+    "do:publish": "yarn do:prepublish && cd lib && yarn publish",
+    "lint": "eslint src hooks",
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "yarn test --coverage",
+    "test:coveralls": "yarn test --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "commitizen": "^3.0.5",
+    "coveralls": "^3.0.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^5.10.0",
+    "husky": "^1.2.1",
+    "jest": "^23.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "sequelize": "^4.42.0"
+  }
+}

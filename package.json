@@ -1,7 +1,7 @@
 {
   "name": "hapi-sequelize-orm",
   "version": "1.0.0",
-  "description": "A Hapijs (v17+) plugin for relational databases using Sequelize",
+  "description": "Sequelize plugin for HapiJS (v17+)",
   "main": "lib/index.js",
   "author": "Tony DBR <tonyblast@gmail.com>",
   "license": "MIT",

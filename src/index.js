@@ -7,8 +7,17 @@ export default {
     version,
     register: async (server, { databases }) => {
         const getDb = dbName => {
-            console.log(server);
-            console.log(dbName);
+            if (!dbName) {
+                throw new Error(`${name}: You must provide a database name`);
+            }
+
+            const instancePlugin = `${name}:${dbName}`;
+
+            if (!server.hasOwnProperty(instancePlugin)) {
+                throw new Error(`${name}: There's no [${dbName}] database`);
+            }
+
+            return server[instancePlugin];
         };
 
         for (const dbName in databases) {
@@ -18,7 +27,7 @@ export default {
                 await instance.testConnection();
                 await instance.init();
 
-                server.decorate('server', `${name}:${dbName}`);
+                server.decorate('server', `${name}:${dbName}`, instance);
                 console.log(`${name}: [${dbName}] database initialized`);
             }
             catch (error) {

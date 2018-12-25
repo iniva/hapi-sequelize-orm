@@ -2,14 +2,14 @@ import Sequelize from 'sequelize';
 
 export default class Orm {
     constructor(options) {
-        const { database, username, password, models = {}, ...config } = options;
+        const { models = {}, ...config } = options;
         const settings = {
             operatorsAliases: false,
             logging: false,
             ...config
         };
 
-        this.conn = new Sequelize(database, username, password, settings);
+        this.conn = new Sequelize(settings);
         this.models = {};
 
         this.setModels(models);

@@ -59,7 +59,7 @@ Models are javascript objects with the following properties:
 * `optional` **associations**: an array of objects with the following properties:
   * `required` **type**: The association type. The `ASSOCIATION_TYPES` variable that comes with this library is a direct export of `sequelize.DataTypes`.
   * `required` **target**: the name of the target model.
-  * `required` **options**: an object that defines the specific association. See [Sequelize Associations](http://docs.sequelizejs.com/class/lib/associations/base.js~Association.html) for more details.
+  * `optional | required` **options**: an object that defines the specific association. See [Sequelize Associations](http://docs.sequelizejs.com/class/lib/associations/base.js~Association.html) for more details.
 
 **Example**
 ```javascript

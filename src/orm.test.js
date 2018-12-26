@@ -15,4 +15,10 @@ describe('Orm class', () => {
         expect(database.conn).toBeInstanceOf(Sequelize);
         expect(Object.keys(database)).toEqual(expect.arrayContaining(expectedProperties));
     });
+
+    it('should throw when trying to get a model that does not exist', () => {
+        const database = new Orm({});
+
+        expect(() => database.getModel('invalid')).toThrowError(/\[invalid\] model doesn't exist/);
+    })
 });

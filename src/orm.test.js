@@ -5,7 +5,6 @@ import Sequelize from 'sequelize';
 import Orm from './orm';
 import { DATA_TYPES, ASSOCIATION_TYPES } from './types';
 
-
 const mockedModels = {
     User: {
         name: 'User',
@@ -81,6 +80,13 @@ describe('Orm class', () => {
         const expectedModels = Object.keys(mockedConfig.models);
 
         expect(Object.keys(database.models)).toEqual(expectedModels);
+    });
+
+    it('should not set the models', () => {
+        const { models, ...noModelsConfig } = mockedConfig; // eslint-disable-line no-unused-vars
+        const database = new Orm(noModelsConfig);
+
+        expect(Object.keys(database.models)).toEqual([]);
     });
 
     it('should be able to get a valid model', () => {

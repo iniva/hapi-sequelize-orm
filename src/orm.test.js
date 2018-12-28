@@ -1,4 +1,4 @@
-/* global jest describe it expect */
+/* global jest beforeEach afterEach describe it expect */
 
 import Sequelize from 'sequelize';
 
@@ -94,5 +94,45 @@ describe('Orm class', () => {
         const userModel = database.getModel('User');
 
         expect(userModel).toBeInstanceOf(Function);
+    });
+
+    describe('Internal Sequelize methods', () => {
+        let myDb;
+
+        beforeEach(() => {
+            myDb = new Orm(mockedConfig);
+        });
+
+        afterEach(() => {
+            myDb = null;
+        });
+
+        it('should call Sequelize [sync] method', () => {
+            myDb.conn.sync = jest.fn();
+            myDb.init();
+
+            expect(myDb.conn.sync).toHaveBeenCalledTimes(1);
+        });
+
+        it('should call Sequelize [authenticate] method', () => {
+            myDb.conn.authenticate = jest.fn();
+            myDb.testConnection();
+
+            expect(myDb.conn.authenticate).toHaveBeenCalledTimes(1);
+        });
+
+        it('should call Sequelize [close] method', () => {
+            myDb.conn.close = jest.fn();
+            myDb.close();
+
+            expect(myDb.conn.close).toHaveBeenCalledTimes(1);
+        });
+
+        it('should call Sequelize [query] method', () => {
+            myDb.conn.query = jest.fn();
+            myDb.query('SELECT 1', {});
+
+            expect(myDb.conn.query).toHaveBeenCalledTimes(1);
+        });
     });
 });

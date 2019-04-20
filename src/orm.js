@@ -4,7 +4,6 @@ export default class Orm {
     constructor(options) {
         const { models = {}, ...config } = options;
         const settings = {
-            operatorsAliases: false,
             logging: false,
             ...config
         };

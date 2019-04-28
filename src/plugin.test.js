@@ -1,6 +1,6 @@
 /* global jest beforeEach describe it expect */
 
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 
 import plugin from './plugin';
 import Orm from './orm';

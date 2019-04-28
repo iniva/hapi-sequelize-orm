@@ -48,6 +48,6 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "sequelize": "^5.7.1"
+    "sequelize": "^5.7.6"
   }
 }

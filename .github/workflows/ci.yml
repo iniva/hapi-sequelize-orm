@@ -1,0 +1,144 @@
+name: Continuous Integration
+
+# This event is triggered on pushes to master & PRs to all branches
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  prepare:
+    name: preparing pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Cloning repository
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Getting cache for node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - uses: actions/setup-node@v1
+        name: Setting Node.js Version
+        with:
+          node-version: '10.x'
+
+      - name: Installing dependencies
+        run: yarn
+        continue-on-error: false
+
+  lint:
+    needs: prepare
+    name: linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Cloning repository
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Getting cache for node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - uses: actions/setup-node@v1
+        name: Setting Node.js Version
+        with:
+          node-version: '10.x'
+
+      - name: Installing dependencies
+        run: yarn
+        continue-on-error: false
+
+      - name: Running linter
+        run: yarn test:lint
+        continue-on-error: false
+  
+  tests:
+    needs: lint
+    strategy:
+      matrix:
+        node: ['8.x', '10.x', '12.x']
+      # Let individual jobs in the matrix fail without canceling all jobs
+      fail-fast: false
+    name: unit tests on node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Cloning repository
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Getting cache for node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - uses: actions/setup-node@v1
+        name: Setting Node.js ${{ matrix.node }}
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Installing dependencies
+        run: yarn
+        continue-on-error: false
+
+      - name: Running unit tests
+        run: yarn test:unit
+        continue-on-error: false
+
+  coverage:
+    needs: tests
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Cloning repository
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Getting cache for node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - uses: actions/setup-node@v1
+        name: Setting Node.js Version
+        with:
+          node-version: '10.x'
+
+      - name: Installing dependencies
+        run: yarn
+        continue-on-error: false
+
+      - name: Running coverage test
+        run: yarn test:coverage
+        continue-on-error: false
+
+      - name: Sending coverage to coveralls
+        run: yarn test:coveralls

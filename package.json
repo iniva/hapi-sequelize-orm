@@ -22,8 +22,8 @@
     "do:publish": "yarn do:build && yarn publish",
     "test:lint": "eslint src hooks",
     "test:unit": "NODE_ENV=test jest",
-    "test:coverage": "yarn test --coverage",
-    "test:coveralls": "yarn test --coverage --coverageReporters=text-lcov | coveralls"
+    "test:coverage": "yarn test:unit --coverage",
+    "test:coveralls": "yarn test:unit --coverage --coverageReporters=text-lcov | coveralls"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",

@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 
+import { hasOwnProperty } from './helpers'
+
 export default class Orm {
     constructor(options) {
         const { models = {}, ...config } = options;
@@ -17,14 +19,14 @@ export default class Orm {
 
     setModels(models) {
         for (const modelName in models) {
-            const { name, definition, options = {}} = models[modelName];
+            const { name, definition, options = {} } = models[modelName];
 
             this.models[name] = this.conn.define(name, definition, options);
         }
     }
 
     getModel(model) {
-        if (!this.models.hasOwnProperty(model)) {
+        if (!hasOwnProperty(this.models, model)) {
             throw new Error(`[${model}] model doesn't exist`);
         }
 
@@ -35,7 +37,7 @@ export default class Orm {
         for (const modelName in models) {
             const model = models[modelName];
 
-            if (model.hasOwnProperty('associations')) {
+            if (hasOwnProperty(model, 'associations')) {
                 model.associations.forEach(({ type, target, options }) => {
                     this.models[model.name].associate = (models, type, target, options = {}) => {
                         return this.models[model.name][type](models[target], options);

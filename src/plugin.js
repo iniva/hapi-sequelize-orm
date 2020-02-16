@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { name, version } from '../package';
 import Orm from './orm';
+import { hasOwnProperty } from './helpers'
 
 export default {
     name,
@@ -13,7 +14,7 @@ export default {
 
             const instancePlugin = `${name}:${dbName}`;
 
-            if (!server.hasOwnProperty(instancePlugin)) {
+            if (!hasOwnProperty(server, instancePlugin)) {
                 throw new Error(`${name}: There's no [${dbName}] database`);
             }
 

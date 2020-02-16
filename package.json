@@ -20,10 +20,10 @@
     "hooks:message": "node hooks/index.js --action=message",
     "do:build": "yarn clean && babel src --out-dir lib --copy-files --ignore '**/*.test.js' && yarn clean:build",
     "do:publish": "yarn do:build && yarn publish",
-    "lint": "eslint src hooks",
-    "test": "NODE_ENV=test jest",
-    "test:coverage": "yarn test --coverage",
-    "test:coveralls": "yarn test --coverage --coverageReporters=text-lcov | coveralls"
+    "test:lint": "eslint src hooks",
+    "test:unit": "NODE_ENV=test jest",
+    "test:coverage": "yarn test:unit --coverage",
+    "test:coveralls": "yarn test:unit --coverage --coverageReporters=text-lcov | coveralls"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",

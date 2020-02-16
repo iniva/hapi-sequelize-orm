@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/iniva/hapi-sequelize-orm.svg?branch=master)](https://travis-ci.org/iniva/hapi-sequelize-orm)
+![Continuous Integration](https://github.com/iniva/hapi-sequelize-orm/workflows/Continuous%20Integration/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/iniva/hapi-sequelize-orm/badge.svg?branch=master)](https://coveralls.io/github/iniva/hapi-sequelize-orm?branch=master)
 
 # Hapi Sequelize ORM <!-- omit in toc -->

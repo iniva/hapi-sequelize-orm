@@ -141,4 +141,8 @@ jobs:
         continue-on-error: false
 
       - name: Sending coverage to coveralls
-        run: yarn test:coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      

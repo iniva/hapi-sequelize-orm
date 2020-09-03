@@ -30,7 +30,7 @@
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
-    "@hapi/hapi": "^18.3.1",
+    "@hapi/hapi": "^19.1.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.7.1",
     "commitizen": "^3.1.1",

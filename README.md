@@ -1,5 +1,4 @@
-![Continuous Integration](https://github.com/iniva/hapi-sequelize-orm/workflows/Continuous%20Integration/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/iniva/hapi-sequelize-orm/badge.svg?branch=master)](https://coveralls.io/github/iniva/hapi-sequelize-orm?branch=master)
+> :warning: This won't be updated anymore
 
 # Hapi Sequelize ORM <!-- omit in toc -->
 A Hapijs (v17+) plugin for relational databases using Sequelize
